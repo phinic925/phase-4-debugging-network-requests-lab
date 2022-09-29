@@ -71,3 +71,21 @@ developing your own process.
 - Donate a toy to Goodwill (and delete it from our database)
 
   - How I debugged:
+   1. Find and open new `toy form` in client
+    2. Attempt to `submit` blank form
+    3. Read `error type` in `Console`
+    4. Error `500` > Check `Network` tab in `Inspect` tools
+    5. Identify top-level error in `traces` (`Application Trace`)
+    6. Read ``"app/controllers/toys_controller.rb:10 in `create'"``  
+    7. Fix `Toy`~~`s`~~`.create`  
+    8. Retest with dummy data
+- Update the number of likes for a toy  
+  - How I debugged:  
+    1. Attempt to `Like`  
+    2. Check `Console` for error message  
+    3. `SyntaxError: Unexpected end of JSON input` -- JSON not being returned  
+      - error points at ToyCard.js:21:1, which is actually our fetch  
+      - if I didn't know error code prior, I'd either Google or check log in terminal running`rails s` 
+        - Error code `204 No Content`
+    4. Fix missing `json` response -- `render json: toy, status: :ok`
+    5. Retest button
